@@ -1,0 +1,372 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Islamic Color Palette */
+    --background: 42 36% 97%;
+    --foreground: 172 48% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 172 48% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 172 48% 13%;
+
+    /* Primary - Islamic Green */
+    --primary: 172 55% 24%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 169 45% 38%;
+    --primary-dark: 174 64% 13%;
+
+    /* Secondary - Islamic Gold */
+    --secondary: 45 95% 55%;
+    --secondary-foreground: 172 48% 13%;
+    --secondary-light: 45 100% 65%;
+    --secondary-dark: 45 85% 45%;
+
+    /* Accent - Islamic Blue */
+    --accent: 12 72% 52%;
+    --accent-foreground: 0 0% 98%;
+    --accent-light: 215 75% 45%;
+
+    --muted: 220 15% 92%;
+    --muted-foreground: 172 20% 42%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 85%;
+    --input: 220 15% 90%;
+    --ring: 172 55% 24%;
+
+    /* Islamic Design Elements */
+    --gradient-islamic: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+    --gradient-gold: linear-gradient(135deg, hsl(var(--secondary-dark)), hsl(var(--secondary-light)));
+    --gradient-green: linear-gradient(135deg, hsl(var(--primary-dark)), hsl(var(--primary-light)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+    
+    /* Shadows */
+    --shadow-islamic: 0 10px 40px -10px hsl(var(--primary) / 0.3);
+    --shadow-gold: 0 8px 32px -8px hsl(var(--secondary) / 0.4);
+    --shadow-elegant: 0 20px 60px -20px hsl(var(--primary) / 0.2);
+    
+    /* Animation Variables */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Cairo', 'Amiri', 'Noto Sans Arabic', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Islamic Card Styles */
+  .islamic-card {
+    @apply relative overflow-hidden rounded-2xl bg-card shadow-lg;
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+    border: 2px solid hsl(var(--border));
+    transition: var(--transition-smooth);
+  }
+  
+  .islamic-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .islamic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-islamic);
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  /* Golden Header */
+  .golden-header {
+    background: var(--gradient-gold);
+    @apply text-secondary-foreground shadow-lg;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .golden-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      hsl(var(--secondary-light) / 0.1) 10px,
+      hsl(var(--secondary-light) / 0.1) 20px
+    );
+    animation: slide 20s linear infinite;
+        pointer-events: none;
+
+  }
+
+  /* Grade Badge */
+  .grade-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white;
+    box-shadow: var(--shadow-islamic);
+    border: 2px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Islamic Pattern */
+  .islamic-pattern {
+    position: relative;
+  }
+  
+  .islamic-pattern::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(var(--secondary-light) / 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 75% 75%, hsl(var(--primary-light) / 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 75% 25%, hsl(var(--accent-light) / 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 25% 75%, hsl(var(--secondary) / 0.1) 0%, transparent 25%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .teacher-portal-pattern {
+    background-color: #f1f6f2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='none' stroke='%231d604a' stroke-opacity='.09' stroke-width='1'%3E%3Cpath d='M56 2 68 30 96 16 82 44 110 56 82 68 96 96 68 82 56 110 44 82 16 96 30 68 2 56 30 44 16 16 44 30Z'/%3E%3Cpath d='M56 2V110M2 56H110M16 16 96 96M96 16 16 96M30 44 44 30H68L82 44V68L68 82H44L30 68Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 112px 112px;
+  }
+
+  .teacher-dashboard-panel {
+    border: 1px solid #d8e6dc;
+    border-top: 3px solid #1d604a;
+    background: #fff;
+    box-shadow: 0 12px 36px -24px rgb(16 59 47 / 32%);
+  }
+
+  .teacher-dashboard-welcome {
+    border: 1px solid #2d725b;
+    background: linear-gradient(135deg, #103b2f 0%, #1d604a 72%, #2d725b 100%);
+    box-shadow: 0 18px 42px -24px rgb(16 59 47 / 55%);
+  }
+
+  .teacher-portal-navbar {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #2d725b;
+    background: #103b2f;
+    color: #f5faf6;
+  }
+
+  .teacher-portal-navbar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' viewBox='0 0 112 112'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.06' stroke-width='1'%3E%3Cpath d='M56 2 68 30 96 16 82 44 110 56 82 68 96 96 68 82 56 110 44 82 16 96 30 68 2 56 30 44 16 16 44 30Z'/%3E%3Cpath d='M56 2V110M2 56H110M16 16 96 96M96 16 16 96M30 44 44 30H68L82 44V68L68 82H44L30 68Z'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .teacher-portal-navbar > div {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Animations */
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  .fade-in-right {
+    animation: fadeInRight 0.8s ease-out forwards;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+
+  /* Hover Effects */
+  .hover-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--secondary) / 0.5);
+    transform: scale(1.05);
+  }
+  
+  /* Text Glow Effect */
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  /* Islamic Geometric Border */
+  .geometric-border {
+    position: relative;
+  }
+  
+  .geometric-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    padding: 2px;
+    background: conic-gradient(from 0deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--accent)), hsl(var(--primary)));
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+  }
+}
+
+/* Additional Animations for Public Home Page */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50%, 50%);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.delay-1000 {
+  animation-delay: 1s;
+}

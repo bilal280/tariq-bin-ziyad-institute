@@ -1,0 +1,168 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { 
+  BookOpen, 
+  Users, 
+  FileText, 
+  Award, 
+  ClipboardList, 
+  Edit3,
+  Calendar,
+  User,
+  ChevronRight
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import TeacherNavbar from "@/components/TeacherNavbar";
+import ProtectedTeacherRoute from "@/components/ProtectedTeacherRoute";
+import IslamicTime from "@/components/IslamicTime";
+
+interface TeacherPage {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+  path: string;
+}
+
+const TeacherDashboard = () => {
+  const [teacherName, setTeacherName] = useState<string>("الأستاذ");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loadTeacherName();
+  }, []);
+
+  const loadTeacherName = () => {
+    const teacherData = localStorage.getItem('teacher');
+    if (teacherData) {
+      const teacher = JSON.parse(teacherData);
+      setTeacherName(teacher.name || "الأستاذ");
+    }
+  };
+
+  const teacherPages: TeacherPage[] = [
+    {
+      title: "الإدخال السريع",
+      description: "أدخل بيانات جميع الطلاب في جدول واحد",
+      icon: Edit3,
+      path: "/teacher/quick-entry",
+    },
+    {
+      title: "إدارة الطلاب",
+      description: "عرض وإدارة طلاب الحلقة",
+      icon: Users,
+      path: "/teacher/students",
+    },
+    {
+      title: "أعمال الحلقة",
+      description: "عرض أنشطة وأعمال الحلقة اليومية",
+      icon: BookOpen,
+      path: "/teacher/activities",
+    },
+    {
+      title: "السجلات",
+      description: "عرض سجلات الطلاب والأعمال",
+      icon: FileText,
+      path: "/teacher/records",
+    },
+    {
+      title: "إرسال الاختبارات",
+      description: "إرسال طلاب الحلقة إلى المختبر للاختبار",
+      icon: ClipboardList,
+      path: "/teacher/exams",
+    },
+    {
+      title: "سجلات الاختبارات",
+      description: "عرض جميع اختبارات طلابك",
+      icon: ClipboardList,
+      path: "/teacher/exam-records",
+    },
+    {
+      title: "بر الوالدين",
+      description: "تسجيل نسبة بر الطلاب بوالديهم شهريًا",
+      icon: Award,
+      path: "/teacher/parental-birr",
+    }
+  ];
+
+  const handlePageClick = (path: string) => {
+    navigate(path);
+  };
+
+  return (
+    <ProtectedTeacherRoute>
+      <div className="min-h-screen teacher-portal-pattern">
+        <TeacherNavbar />
+
+        <main className="container mx-auto px-4 py-8">
+          {/* Header Section */}
+          <div className="text-center mb-12 fade-in-up">
+            <div className="teacher-dashboard-welcome rounded-2xl p-8 mb-8 text-white">
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center shadow-lg ring-4 ring-white/15">
+                  <User className="w-10 h-10 text-white" />
+                </div>
+              </div>
+              <h1 className="text-4xl font-bold text-white mb-4">
+                مرحباً الأستاذ {teacherName}
+              </h1>
+              <p className="text-xl text-white/75 mb-6">
+                اختر الصفحة التي تريد الوصول إليها
+              </p>
+              
+              <IslamicTime />
+            </div>
+          </div>
+
+          {/* Pages Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {teacherPages.map((page, index) => (
+              <Card 
+                key={page.path}
+                onClick={() => handlePageClick(page.path)}
+                className={`teacher-dashboard-panel rounded-2xl p-6 cursor-pointer hover:shadow-xl hover:scale-105 transition-all duration-300 group ${
+                  index % 2 === 0 ? 'fade-in-up' : 'fade-in-right'
+                }`}
+              >
+                <div className="rounded-lg bg-[#e5f0e9] p-4 mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <page.icon className="w-8 h-8 text-[#1d604a] mx-auto" />
+                </div>
+                
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-[#103b2f] mb-2 transition-colors">
+                    {page.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                    {page.description}
+                  </p>
+                  
+                  <div className="flex items-center justify-center text-[#1d604a] group-hover:translate-x-1 transition-transform duration-300">
+                    <span className="text-sm font-medium ml-2">انتقال</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* Footer with Hijri Date */}
+          <div className="mt-16 text-center fade-in-up">
+            <div className="teacher-dashboard-panel rounded-2xl p-6">
+              <p className="text-muted-foreground mb-4">
+                نسأل الله أن يبارك في جهودكم ويجعل عملكم في ميزان حسناتكم
+              </p>
+              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                <Calendar className="w-4 h-4" />
+                <span>
+                  التقويم الهجري: {new Date().getFullYear() - 622} هـ
+                </span>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </ProtectedTeacherRoute>
+  );
+};
+
+export default TeacherDashboard;
