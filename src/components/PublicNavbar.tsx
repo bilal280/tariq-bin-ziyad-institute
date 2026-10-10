@@ -10,7 +10,7 @@ const navLinks = [
   { label: "الرئيسية", path: "/", icon: Home, sectionId: null },
   { label: "عن المعهد", path: "/about", icon: Info, sectionId: null },
   { label: "المعرض", path: "/gallery", icon: Images, sectionId: null },
-  { label: "البرامج والنشاطات", path: "/programs", icon: CalendarDays, sectionId: null },
+  // { label: "البرامج والنشاطات", path: "/programs", icon: CalendarDays, sectionId: null },
   { label: "الهدايا والنجوم", path: "/gifts", icon: Gift, sectionId: null },
   { label: "تواصل معنا", path: "/", icon: Phone, sectionId: "contact" },
 ];
